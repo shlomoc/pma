@@ -20,6 +20,7 @@ import Column from './Column'
 import TaskCard from './TaskCard'
 import AddTaskModal from './AddTaskModal'
 import AddColumnModal from './AddColumnModal'
+import AIPromptModal from './AIPromptModal'
 import Button from '@/components/ui/Button'
 import { Plus } from 'lucide-react'
 
@@ -49,6 +50,9 @@ const Board: React.FC = () => {
   const [columnModalOpen, setColumnModalOpen] = useState(false)
   const [selectedColumnId, setSelectedColumnId] = useState<string>('todo')
   const [editingTask, setEditingTask] = useState<Task | null>(null)
+  const [aiModalOpen, setAiModalOpen] = useState(false)
+  const [aiPrompt, setAiPrompt] = useState('')
+  const [aiLoading, setAiLoading] = useState(false)
 
   // Initialize store on mount (hydration)
   useEffect(() => {
@@ -56,7 +60,13 @@ const Board: React.FC = () => {
   }, [initialize])
 
   // Configure drag sensors
-  const sensors = useSensors(useSensor(PointerSensor))
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8, // Require at least 8px movement before initiating drag
+      },
+    })
+  )
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event
@@ -144,6 +154,40 @@ const Board: React.FC = () => {
     addColumn(title)
   }, [addColumn])
 
+  const handleGenerateAIPrompt = useCallback(async (task: Task) => {
+    setAiModalOpen(true)
+    setAiLoading(true)
+    setAiPrompt('')
+
+    try {
+      const response = await fetch('/api/generate-prompt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: task.title,
+          description: task.description,
+        }),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        setAiPrompt(`Error: ${errorData.error || 'Failed to generate prompt'}`)
+        setAiLoading(false)
+        return
+      }
+
+      const data = await response.json()
+      setAiPrompt(data.prompt)
+      setAiLoading(false)
+    } catch (error) {
+      console.error('Error generating prompt:', error)
+      setAiPrompt(`Error: ${error instanceof Error ? error.message : 'Failed to generate prompt'}`)
+      setAiLoading(false)
+    }
+  }, [])
+
   // Get tasks sorted by column and order
   const getTasksByColumn = (columnId: string) => {
     return tasks
@@ -183,6 +227,7 @@ const Board: React.FC = () => {
                   onEditTask={handleEditTask}
                   onDeleteTask={deleteTask}
                   onDeleteColumn={deleteColumn}
+                  onGenerateAIPrompt={handleGenerateAIPrompt}
                 />
               ))}
 
@@ -231,6 +276,13 @@ const Board: React.FC = () => {
         isOpen={columnModalOpen}
         onClose={() => setColumnModalOpen(false)}
         onSave={handleAddColumn}
+      />
+
+      <AIPromptModal
+        isOpen={aiModalOpen}
+        onClose={() => setAiModalOpen(false)}
+        prompt={aiPrompt}
+        isLoading={aiLoading}
       />
     </DndContext>
   )

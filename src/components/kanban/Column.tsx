@@ -18,6 +18,7 @@ interface ColumnProps {
   onEditTask: (task: Task) => void
   onDeleteTask: (taskId: string) => void
   onDeleteColumn: (columnId: string) => void
+  onGenerateAIPrompt?: (task: Task) => void
 }
 
 const Column: React.FC<ColumnProps> = ({
@@ -27,6 +28,7 @@ const Column: React.FC<ColumnProps> = ({
   onEditTask,
   onDeleteTask,
   onDeleteColumn,
+  onGenerateAIPrompt,
 }) => {
   const { setNodeRef, isOver } = useDroppable({
     id: column.id,
@@ -87,6 +89,7 @@ const Column: React.FC<ColumnProps> = ({
                 task={task}
                 onEdit={onEditTask}
                 onDelete={onDeleteTask}
+                onGenerateAIPrompt={onGenerateAIPrompt}
               />
             ))
           )}

@@ -72,3 +72,7 @@ ehthumbs.db
 *.temp
 .cache/
 .temp/
+
+QA_REPORT.md
+QA-TEST-REPORT.md
+TEST-REPORT.md
