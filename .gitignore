@@ -1,0 +1,74 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+/test-results
+/playwright-report
+/blob-report
+/playwright/.cache
+/screenshots
+/tests/screenshots
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env.local
+.env.*.local
+.env
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Claude Code
+.claude/
+.claud*
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# Playwright
+/tests/screenshots
+/tests/test-results
+playwright.config.ts.bak
+
+# macOS
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.temp/
