@@ -50,13 +50,13 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete }) => {
       onHoverEnd={() => setIsHovered(false)}
       whileHover={!isDragging ? { y: -2, boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' } : {}}
       whileDrag={{ scale: 1.05, opacity: 0.95 }}
-      className="bg-white rounded-lg border border-gray-200 shadow-sm p-4 cursor-grab active:cursor-grabbing transition-all duration-200"
+      className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-4 cursor-grab active:cursor-grabbing transition-all duration-200"
       {...attributes}
       {...listeners}
     >
       {/* Card Header */}
       <div className="flex items-start justify-between mb-2">
-        <h3 className="font-semibold text-gray-900 flex-1 pr-2">{task.title}</h3>
+        <h3 className="font-semibold text-gray-900 dark:text-gray-100 flex-1 pr-2">{task.title}</h3>
 
         {/* Action Buttons */}
         {isHovered && (
@@ -72,7 +72,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete }) => {
                 e.stopPropagation()
                 onEdit(task)
               }}
-              className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+              className="p-1.5 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded transition-colors"
               title="Edit task"
             >
               <Edit2 size={16} />
@@ -82,7 +82,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete }) => {
                 e.stopPropagation()
                 onDelete(task.id)
               }}
-              className="p-1.5 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+              className="p-1.5 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
               title="Delete task"
             >
               <Trash2 size={16} />
@@ -93,14 +93,14 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete }) => {
 
       {/* Description Preview */}
       {task.description && (
-        <p className="text-sm text-gray-600 line-clamp-2">
+        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
           {truncateText(task.description, 80)}
         </p>
       )}
 
       {/* Empty state message */}
       {!task.description && (
-        <p className="text-xs text-gray-400 italic">No description</p>
+        <p className="text-xs text-gray-400 dark:text-gray-500 italic">No description</p>
       )}
     </motion.div>
   )
