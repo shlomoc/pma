@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import ThemeProvider from '@/components/ThemeProvider'
+import ThemeToggle from '@/components/ThemeToggle'
 
 export const metadata: Metadata = {
   title: 'Kanban Board | Vibe Coding',
@@ -13,8 +15,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-50">
-        {children}
+      <body>
+        <ThemeProvider>
+          <ThemeToggle />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
