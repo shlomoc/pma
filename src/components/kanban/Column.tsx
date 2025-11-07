@@ -46,7 +46,7 @@ const Column: React.FC<ColumnProps> = ({
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3 }}
-      className={`flex-1 min-w-[280px] sm:min-w-[320px] md:min-w-[350px] bg-gray-50 dark:bg-gray-900 rounded-xl border-2 transition-all duration-200 ${
+      className={`flex-1 min-w-[230px] sm:min-w-[250px] md:min-w-[280px] bg-gray-50 dark:bg-gray-900 rounded-xl border-2 transition-all duration-200 ${
         isOver ? 'border-blue-500 bg-blue-50/30 dark:bg-blue-900/30 shadow-md' : 'border-gray-200 dark:border-gray-700'
       }`}
     >

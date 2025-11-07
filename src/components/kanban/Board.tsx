@@ -215,7 +215,7 @@ const Board: React.FC = () => {
           </div>
 
           {/* Board */}
-          <div className="flex gap-4 md:gap-6 overflow-x-auto pb-4 md:pb-0">
+          <div className="flex gap-2 md:gap-4 overflow-x-auto pb-4 md:pb-0">
             {columns
               .sort((a, b) => a.order - b.order)
               .map((column) => (
